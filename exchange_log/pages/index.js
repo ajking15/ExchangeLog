@@ -1,4 +1,4 @@
-import {TableContainer, Table, TableCell, TableRow, TableHead, Paper, TableBody, Avatar } from '@mui/material';
+import {TableContainer, Table, TableCell, TableRow, TableHead, Paper, TableBody, Avatar, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 const CoinGecko = require('coingecko-api');
 export default function Home() {
