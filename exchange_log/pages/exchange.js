@@ -7,6 +7,8 @@ import RedditIcon from '@mui/icons-material/Reddit';
 const CoinGecko = require('coingecko-api');
 export default function Exchange() {
     const [exchangeData, setExchangeData] = useState({});
+
+    //name, country, trust rank, logo, year of establishment, social media links, description, and a back-to-main-page button
     useEffect(() => {
         const CoinGeckoClient = new CoinGecko();
         const queryString = window.location.search;
@@ -24,6 +26,19 @@ export default function Exchange() {
     }, []);
 
     console.log(exchangeData);
+    const fbBubble = exchangeData.facebook_url ? <IconButton href={exchangeData.facebook_url}><Avatar sx={{bgcolor: 'royalblue'}}>
+    <FacebookRoundedIcon />
+  </Avatar></IconButton>: <></>;
+  const twitterBubble = exchangeData.twitter_handle ? <IconButton href={"http://twitter.com/" +exchangeData.twitter_handle}><Avatar sx={{bgcolor: 'skyBlue'}}>
+  <TwitterIcon />
+</Avatar></IconButton>: <></>;
+const redditBubble = exchangeData.reddit_url ? <IconButton href={exchangeData.reddit_url}><Avatar sx={{bgcolor: 'orange'}}>
+<RedditIcon />
+</Avatar></IconButton>: <></>;
+const socialMediaBubble = (<Stack  direction="row" spacing={1}>
+    {fbBubble}
+    {twitterBubble}
+</Stack>)
     const lable = (
         <Stack spacing={4}>
             <Typography variant="h5" gutterBottom component="div">
@@ -63,9 +78,8 @@ export default function Exchange() {
                 <Typography variant="h5" gutterBottom component="div">
                     {exchangeData.year_established ? exchangeData.year_established : 'Unkown'}
                 </Typography>
-                <Typography variant="h5" gutterBottom component="div">
-                    {exchangeData.facebook_url ? exchangeData.facebook_url : 'Unkown'}
-                </Typography>
+
+                {socialMediaBubble}
                 <Typography variant="h5" gutterBottom component="div">
                     {exchangeData.description ? exchangeData.description : 'Unkown'}
                 </Typography>
@@ -74,13 +88,15 @@ export default function Exchange() {
     return (
         <>
         
-        <div>
+        <div style={{padding: '10% 0 0 20%'}}>
         <Button variant="outlined" onClick={() => window.history.back()} color="primary" sx={ { borderRadius: 28 } }>Back</Button>
+            <Paper sx={{ width: '80%',}} elevation={3}>
             <Stack  direction="row" spacing={2}>
             <Avatar sx={{ width: 100, height: 100 }} src={exchangeData.image} />
             {lable}
             {exchangeInfo}
             </Stack>
+            </Paper>
         </div>
         </>
     )
