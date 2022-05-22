@@ -20,20 +20,22 @@ export default function Home() {
     if(exchanges.length > 0){
     for(var c = 0; c < 10; c++){
       table.push(
-        <TableRow id={exchanges[c].id} hover onClick={(e) => {console.log(exchanges[c].id);
+        <TableRow key={exchanges[c].id} hover onClick={(e) => {console.log(exchanges[c].id);
         window.location = `/exchange?id=${exchanges[c].id}`}}>
-        <TableCell><Avatar src={exchanges[c].image}/></TableCell>
-        <TableCell>{exchanges[c].name}</TableCell>
-        <TableCell>{exchanges[c].country}</TableCell>
-        <TableCell>{exchanges[c].trust_score_rank}</TableCell>
+        <TableCell key={exchanges[c].image}><Avatar src={exchanges[c].image}/></TableCell>
+        <TableCell key={exchanges[c].name}>{exchanges[c].name}</TableCell>
+        <TableCell key={exchanges[c].country}>{exchanges[c].country}</TableCell>
+        <TableCell key={exchanges[c].trust_score_rank}>{exchanges[c].trust_score_rank}</TableCell>
         </TableRow>)
     }
     }
     return table;
   }
     
-  return (<>
-    <div><Typography variant="h5" gutterBottom component="div">Exchanges:</Typography></div>
+  return (
+    <div>
+    <div style={{padding: '.5% 0 0 20%'}}>
+    <Paper sx={{ width: '80%',}} elevation={3}>
     <br />
     <TableContainer component={Paper}>
       <Table>
@@ -50,6 +52,8 @@ export default function Home() {
         </TableBody>
       </Table>
     </TableContainer>
-  </>
+    </Paper>
+    </div>
+    </div>
   );
   }
